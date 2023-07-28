@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "226969155485",
+    "project_id": "ultramarket-54ce7",
+    "storage_bucket": "ultramarket-54ce7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226969155485:android:c3c52b58b88a14e7516174",
+        "android_client_info": {
+          "package_name": "com.example.ultra_market"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226969155485-mht06nvoud6tpsk7l4vb8k5bv4ep82fk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHGzh1VYUoDZgPSg8lA-KZFwrc0LXu_zU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226969155485-mht06nvoud6tpsk7l4vb8k5bv4ep82fk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
