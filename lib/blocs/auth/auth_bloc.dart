@@ -22,8 +22,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       required UserRepository userRepository})
       : _authRepository = authRepository,
         _userRepository = userRepository,
-        super(const AuthState.unknown()) {
+        super(
+          authRepository.currentUser.isNotEmpty
+              ? AuthState.authenticated(authRepository.currentUser)
+              : const AuthState.unauthenticated(),
+        ) {
     on<AuthUserChanged>(_onAuthUserChanged);
+
     _authUserSubscription = _authRepository.user.listen((authUser) {
       print('Auth user: $authUser');
       if (authUser != null) {
@@ -38,8 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _onAuthUserChanged(AuthUserChanged event, Emitter<AuthState> emit) {
     event.authUser != null
-        ? emit(AuthState.authenticated(
-            authUser: event.authUser!, user: event.user!))
+        ? emit(AuthState.authenticated(event.user!))
         : emit(const AuthState.unauthenticated());
   }
 
