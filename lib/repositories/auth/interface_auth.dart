@@ -18,5 +18,5 @@ abstract class IAuthRepository {
 
   Future<void> logInWithApple();
 
-  Future<void> signOut();
+  Future<void> logOut();
 }

@@ -73,7 +73,7 @@ class AuthRepository extends IAuthRepository {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<void> logOut() async {
     try {
       /// Implementar google.signout, facebook.signout e apple.signout
       await Future.wait([_firebaseAuth.signOut()]);

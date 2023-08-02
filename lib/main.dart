@@ -5,10 +5,12 @@ import 'package:ultra_market/repositories/auth/auth_repository.dart';
 import 'repositories/user/user_repository.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'pages/pages.dart';
+import 'bloc_observer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = AppBlocObserver();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -21,9 +23,8 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, widget) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Ultra Market',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
         home: MultiRepositoryProvider(

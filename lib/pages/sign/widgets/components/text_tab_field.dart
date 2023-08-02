@@ -25,8 +25,8 @@ class TabTextField extends StatelessWidget {
       child: TextField(
         controller: textController,
         onChanged: (value) {
-          print(textController.text.isValidEmail());
           print(value);
+          print(textController.text.isValidEmail());
         },
         keyboardType: TextInputType.visiblePassword,
         textAlignVertical: TextAlignVertical.center,

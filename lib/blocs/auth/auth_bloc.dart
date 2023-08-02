@@ -28,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               : const AuthState.unauthenticated(),
         ) {
     on<AuthUserChanged>(_onAuthUserChanged);
+    on<AuthLogoutRequested>(_onLogoutRequest);
 
     _authUserSubscription = _authRepository.user.listen((authUser) {
       print('Auth user: $authUser');
@@ -45,6 +46,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     event.authUser != null
         ? emit(AuthState.authenticated(event.user!))
         : emit(const AuthState.unauthenticated());
+  }
+
+  void _onLogoutRequest(AuthLogoutRequested event, Emitter<AuthState> emit) {
+    unawaited(_authRepository.logOut());
   }
 
   @override
