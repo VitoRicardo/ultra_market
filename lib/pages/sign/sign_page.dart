@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'widgets/sign_in_tab.dart';
-import 'widgets/sign_up_tab.dart';
+import 'components/sign_in_tab.dart';
+import 'components/sign_up_tab.dart';
 import 'package:ultra_market/config/app_colors.dart';
 
 class SignPage extends StatefulWidget {

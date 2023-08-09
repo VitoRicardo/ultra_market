@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ultra_market/config/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ultra_market/pages/sign/widgets/sign_up_tab.dart';
+import 'package:ultra_market/pages/sign/components/sign_up_tab.dart';
 
 class TabTextField extends StatelessWidget {
   final Icon? prefixIcon;
   final Icon? suffixIcon;
   final bool isPassword;
-  final bool? regexValidation;
   final TextEditingController textController;
   const TabTextField(
       {Key? key,
       this.prefixIcon,
       this.suffixIcon,
-      this.regexValidation,
       required this.isPassword,
       required this.textController})
       : super(key: key);
@@ -26,7 +24,6 @@ class TabTextField extends StatelessWidget {
         controller: textController,
         onChanged: (value) {
           print(value);
-          print(textController.text.isValidEmail());
         },
         keyboardType: TextInputType.visiblePassword,
         textAlignVertical: TextAlignVertical.center,

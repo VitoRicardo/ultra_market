@@ -4,9 +4,9 @@ import 'package:ultra_market/config/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'widgets/components/deal_card.dart';
-import 'widgets/tab_deal.dart';
-import 'widgets/components/category_card.dart';
+import 'components/deal_card.dart';
+import 'components/tab_deal.dart';
+import 'components/category_card.dart';
 import 'package:ultra_market/dummy_shop_category.dart';
 
 class MarketPlacePage extends StatelessWidget {

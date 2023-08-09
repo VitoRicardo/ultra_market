@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ultra_market/config/app_colors.dart';
-import 'components/text_tab_field.dart';
-import 'components/sign_button.dart';
+import 'text_tab_field.dart';
+import 'sign_button.dart';
 
-extension EmailValidator on String {
-  bool isValidEmail() {
-    return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(this);
-  }
-}
-
-class SignUpTab extends StatelessWidget {
-  const SignUpTab({Key? key}) : super(key: key);
+class SignInTab extends StatefulWidget {
+  const SignInTab({Key? key}) : super(key: key);
 
   @override
+  State<SignInTab> createState() => _SignInTabState();
+}
+
+class _SignInTabState extends State<SignInTab> {
+  bool isCheck = false;
+  // text controllers
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    // text controllers
-    final nameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,22 +55,9 @@ class SignUpTab extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            const Text('Full Name'),
-            TabTextField(
-              textController: nameController,
-              isPassword: false,
-              prefixIcon: Icon(
-                Icons.person,
-                color: AppColors.darkGreen,
-              ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
             const Text('Email'),
             TabTextField(
-              textController: emailController,
-              regexValidation: emailController.text.isValidEmail(),
+              textController: _emailController,
               isPassword: false,
               prefixIcon: Icon(
                 Icons.person,
@@ -86,7 +69,7 @@ class SignUpTab extends StatelessWidget {
             ),
             const Text('Password'),
             TabTextField(
-              textController: passwordController,
+              textController: _passwordController,
               isPassword: false,
               prefixIcon: Icon(
                 Icons.lock,
@@ -97,27 +80,33 @@ class SignUpTab extends StatelessWidget {
                 color: AppColors.darkGreen,
               ),
             ),
-            SizedBox(
-              height: 20.h,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'Remember me',
+                  style: TextStyle(color: AppColors.darkGreen),
+                ),
+                Checkbox(
+                  fillColor: MaterialStateProperty.resolveWith(
+                      (states) => AppColors.lightGreen),
+                  activeColor: AppColors.lightGreen,
+                  checkColor: AppColors.darkGreen,
+                  splashRadius: 0,
+                  value: isCheck,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isCheck = value!;
+                    });
+                  },
+                )
+              ],
             ),
-            const Text('Confirm Password'),
-            TabTextField(
-              textController: confirmPasswordController,
-              isPassword: false,
-              prefixIcon: Icon(
-                Icons.lock,
-                color: AppColors.darkGreen,
-              ),
-              suffixIcon: Icon(
-                Icons.visibility_off,
-                color: AppColors.darkGreen,
-              ),
-            ),
             SizedBox(
-              height: 30.h,
+              height: 162.h,
             ),
             SignButton(
-              text: 'Sign Up',
+              text: 'Sign In',
               onPressed: () {},
             ),
           ],

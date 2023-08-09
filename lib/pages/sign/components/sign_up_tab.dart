@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ultra_market/blocs/auth/auth_bloc.dart';
 import 'package:ultra_market/config/app_colors.dart';
-import 'components/text_tab_field.dart';
-import 'components/sign_button.dart';
+import 'text_tab_field.dart';
+import 'sign_button.dart';
 
-class SignInTab extends StatefulWidget {
-  const SignInTab({Key? key}) : super(key: key);
+class SignUpTab extends StatelessWidget {
+  const SignUpTab({Key? key}) : super(key: key);
 
-  @override
-  State<SignInTab> createState() => _SignInTabState();
-}
-
-class _SignInTabState extends State<SignInTab> {
-  bool isCheck = false;
-  // text controllers
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    // text controllers
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.h),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,9 +53,21 @@ class _SignInTabState extends State<SignInTab> {
             SizedBox(
               height: 20.h,
             ),
+            const Text('Full Name'),
+            TabTextField(
+              textController: nameController,
+              isPassword: false,
+              prefixIcon: Icon(
+                Icons.person,
+                color: AppColors.darkGreen,
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
             const Text('Email'),
             TabTextField(
-              textController: _emailController,
+              textController: emailController,
               isPassword: false,
               prefixIcon: Icon(
                 Icons.person,
@@ -69,7 +79,7 @@ class _SignInTabState extends State<SignInTab> {
             ),
             const Text('Password'),
             TabTextField(
-              textController: _passwordController,
+              textController: passwordController,
               isPassword: false,
               prefixIcon: Icon(
                 Icons.lock,
@@ -80,33 +90,27 @@ class _SignInTabState extends State<SignInTab> {
                 color: AppColors.darkGreen,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Remember me',
-                  style: TextStyle(color: AppColors.darkGreen),
-                ),
-                Checkbox(
-                  fillColor: MaterialStateProperty.resolveWith(
-                      (states) => AppColors.lightGreen),
-                  activeColor: AppColors.lightGreen,
-                  checkColor: AppColors.darkGreen,
-                  splashRadius: 0,
-                  value: isCheck,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isCheck = value!;
-                    });
-                  },
-                )
-              ],
+            SizedBox(
+              height: 20.h,
+            ),
+            const Text('Confirm Password'),
+            TabTextField(
+              textController: confirmPasswordController,
+              isPassword: false,
+              prefixIcon: Icon(
+                Icons.lock,
+                color: AppColors.darkGreen,
+              ),
+              suffixIcon: Icon(
+                Icons.visibility_off,
+                color: AppColors.darkGreen,
+              ),
             ),
             SizedBox(
-              height: 162.h,
+              height: 30.h,
             ),
             SignButton(
-              text: 'Sign In',
+              text: 'Sign Up',
               onPressed: () {},
             ),
           ],
