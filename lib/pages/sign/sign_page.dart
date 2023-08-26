@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ultra_market/cubits/sign_in/sign_in_cubit.dart';
+import 'package:ultra_market/cubits/sign_up/sign_up_cubit.dart';
+import 'package:ultra_market/repositories/auth/auth_repository.dart';
 import 'components/sign_in_tab.dart';
 import 'components/sign_up_tab.dart';
 import 'package:ultra_market/config/app_colors.dart';
@@ -56,9 +60,16 @@ class _SignPageState extends State<SignPage> with TickerProviderStateMixin {
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: const [
-                  SignInTab(),
-                  SignUpTab(),
+                children: [
+                  BlocProvider<SignInCubit>(
+                      create: (_) => SignInCubit(
+                            authRepository: context.read<AuthRepository>(),
+                          ),
+                      child: const SignInTab()),
+                  BlocProvider<SignUpCubit>(
+                      create: (_) => SignUpCubit(
+                          authRepository: context.read<AuthRepository>()),
+                      child: const SignUpTab()),
                 ],
               ),
             ),

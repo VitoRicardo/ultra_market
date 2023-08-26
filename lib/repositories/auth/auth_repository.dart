@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ultra_market/models/user_model.dart';
 
 import 'interface_auth.dart';
@@ -35,6 +36,8 @@ class AuthRepository extends IAuthRepository {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      User user = _firebaseAuth.currentUser!;
+      currentUser = UserModel(email: user.email, id: user.uid);
     } on FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -53,23 +56,13 @@ class AuthRepository extends IAuthRepository {
         idToken: googleAuth.idToken,
       );
       await _firebaseAuth.signInWithCredential(credential);
+      User user = _firebaseAuth.currentUser!;
+      currentUser = UserModel(email: user.email, id: user.uid);
     } on FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (_) {
       throw const LogInWithGoogleFailure();
     }
-  }
-
-  @override
-  Future<void> logInWithApple() {
-    // TODO: implement logInWithApple
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> logInWithFacebook() {
-    // TODO: implement logInWithFacebook
-    throw UnimplementedError();
   }
 
   @override

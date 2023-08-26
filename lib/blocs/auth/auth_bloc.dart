@@ -31,7 +31,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLogoutRequested>(_onLogoutRequest);
 
     _authUserSubscription = _authRepository.user.listen((authUser) {
-      print('Auth user: $authUser');
       if (authUser != null) {
         _userRepository.getUser(authUser.uid).listen((user) {
           add(AuthUserChanged(authUser: authUser, user: user));

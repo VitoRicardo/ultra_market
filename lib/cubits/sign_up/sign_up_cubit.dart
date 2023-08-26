@@ -31,8 +31,16 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void signUpWithCredentials() async {
-    if (!state.emailIsValid) return;
-    if (!state.passwordEquals) return;
+    if (!state.emailIsValid) {
+      emit(state.copyWith(
+          errorMessage: 'Email is not valid', status: SignUpStatus.error));
+      return;
+    }
+    if (!state.passwordEquals) {
+      emit(state.copyWith(
+          errorMessage: 'Passwords don\'t match', status: SignUpStatus.error));
+      return;
+    }
     emit(state.copyWith(status: SignUpStatus.submitting));
     try {
       await _authRepository.signUp(
@@ -40,7 +48,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(
         state.copyWith(status: SignUpStatus.success),
       );
-    } on LogInWithEmailAndPasswordFailure catch (e) {
+    } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(
         state.copyWith(errorMessage: e.message, status: SignUpStatus.error),
       );

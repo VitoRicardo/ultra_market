@@ -1,3 +1,26 @@
+String? credentialError(String errorCode) {
+  switch (errorCode) {
+    case 'account-exists-with-different-credential':
+      return 'Account exists with different credentials.';
+    case 'invalid-credential':
+      return 'The credential received is malformed or has expired.';
+    case 'operation-not-allowed':
+      return 'Operation is not allowed.  Please contact support.';
+    case 'user-disabled':
+      return 'This user has been disabled. Please contact support for help.';
+    case 'user-not-found':
+      return 'Email is not found, please create an account.';
+    case 'wrong-password':
+      return 'Incorrect password, please try again.';
+    case 'invalid-verification-code':
+      return 'The credential verification code received is invalid.';
+    case 'invalid-verification-id':
+      return 'The credential verification ID received is invalid.';
+    default:
+      return 'Unknown error occurred';
+  }
+}
+
 class SignUpWithEmailAndPasswordFailure implements Exception {
   final String message;
   const SignUpWithEmailAndPasswordFailure([
@@ -35,7 +58,7 @@ class LogInWithEmailAndPasswordFailure implements Exception {
             'This user has been disabled');
       case 'user-not-found':
         return const LogInWithEmailAndPasswordFailure('Email is not register');
-      case 'wrong password':
+      case 'wrong-password':
         return const LogInWithEmailAndPasswordFailure('Incorrect password');
       default:
         return const LogInWithEmailAndPasswordFailure();
@@ -44,48 +67,29 @@ class LogInWithEmailAndPasswordFailure implements Exception {
 }
 
 class LogInWithGoogleFailure implements Exception {
-  final String message;
-  const LogInWithGoogleFailure([
-    this.message = 'Unknown error occurred',
-  ]);
+  final String? message;
+  const LogInWithGoogleFailure([this.message]);
 
   factory LogInWithGoogleFailure.fromCode(code) {
-    switch (code) {
-      case 'account-exists-with-different-credential':
-        return const LogInWithGoogleFailure(
-          'Account exists with different credentials.',
-        );
-      case 'invalid-credential':
-        return const LogInWithGoogleFailure(
-          'The credential received is malformed or has expired.',
-        );
-      case 'operation-not-allowed':
-        return const LogInWithGoogleFailure(
-          'Operation is not allowed.  Please contact support.',
-        );
-      case 'user-disabled':
-        return const LogInWithGoogleFailure(
-          'This user has been disabled. Please contact support for help.',
-        );
-      case 'user-not-found':
-        return const LogInWithGoogleFailure(
-          'Email is not found, please create an account.',
-        );
-      case 'wrong-password':
-        return const LogInWithGoogleFailure(
-          'Incorrect password, please try again.',
-        );
-      case 'invalid-verification-code':
-        return const LogInWithGoogleFailure(
-          'The credential verification code received is invalid.',
-        );
-      case 'invalid-verification-id':
-        return const LogInWithGoogleFailure(
-          'The credential verification ID received is invalid.',
-        );
-      default:
-        return const LogInWithGoogleFailure();
-    }
+    return LogInWithGoogleFailure(credentialError(code));
+  }
+}
+
+class LogInWithFacebookFailure implements Exception {
+  final String? message;
+  const LogInWithFacebookFailure([this.message]);
+
+  factory LogInWithFacebookFailure.fromCode(String code) {
+    return LogInWithFacebookFailure(credentialError(code));
+  }
+}
+
+class LogInWithAppleFailure implements Exception {
+  final String? message;
+  const LogInWithAppleFailure([this.message]);
+
+  factory LogInWithAppleFailure.fromCode(String code) {
+    return LogInWithAppleFailure(credentialError(code));
   }
 }
 

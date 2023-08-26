@@ -7,25 +7,22 @@ class TabTextField extends StatelessWidget {
   final Icon? prefixIcon;
   final Icon? suffixIcon;
   final bool isPassword;
-  final TextEditingController textController;
-  const TabTextField(
-      {Key? key,
-      this.prefixIcon,
-      this.suffixIcon,
-      required this.isPassword,
-      required this.textController})
-      : super(key: key);
+  final void Function(String) onChanged;
+  const TabTextField({
+    Key? key,
+    this.prefixIcon,
+    this.suffixIcon,
+    required this.isPassword,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50.h,
       child: TextField(
-        controller: textController,
-        onChanged: (value) {
-          print(value);
-        },
-        keyboardType: TextInputType.visiblePassword,
+        onChanged: onChanged,
+        keyboardType: TextInputType.emailAddress,
         textAlignVertical: TextAlignVertical.center,
         cursorColor: AppColors.darkGreen,
         decoration: InputDecoration(

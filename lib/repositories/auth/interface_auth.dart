@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ultra_market/models/user_model.dart';
 
 abstract class IAuthRepository {
+  // Stream<UserModel> get currentSignUser;
   Stream<User?> get user;
   Future<User?> signUp({
     required String email,
@@ -13,10 +15,6 @@ abstract class IAuthRepository {
   });
 
   Future<void> logInWithGoogle();
-
-  Future<void> logInWithFacebook();
-
-  Future<void> logInWithApple();
 
   Future<void> logOut();
 }

@@ -29,11 +29,16 @@ class SignInCubit extends Cubit<SignInState> {
     emit(state.copyWith(status: SignInStatus.submitting));
     try {
       await _authRepository.logInWithEmailAndPassword(
-          email: state.email, password: state.password);
-      emit(state.copyWith(status: SignInStatus.success));
+        email: state.email,
+        password: state.password,
+      );
+
+      emit(
+        state.copyWith(status: SignInStatus.success),
+      );
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(state.copyWith(errorMessage: e.message, status: SignInStatus.error));
-    } catch (_) {
+    } catch (e) {
       emit(
         state.copyWith(status: SignInStatus.error),
       );
@@ -45,8 +50,9 @@ class SignInCubit extends Cubit<SignInState> {
     try {
       await _authRepository.logInWithGoogle();
       emit(
-        state.copyWith(status: SignInStatus.error),
+        state.copyWith(status: SignInStatus.success),
       );
+      print(_authRepository.currentUser);
     } on LogInWithGoogleFailure catch (e) {
       emit(
         state.copyWith(errorMessage: e.message, status: SignInStatus.error),

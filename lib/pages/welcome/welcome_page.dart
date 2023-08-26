@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ultra_market/config/app_colors.dart';
-import 'package:ultra_market/pages/sign/sign_page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -64,9 +64,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     borderRadius: BorderRadius.circular(25.h),
                   ),
                   child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'sign_page');
-                    },
+                    onPressed: () => context.go('/sign'),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
