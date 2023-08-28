@@ -4,6 +4,7 @@ import 'package:ultra_market/repositories/auth/auth_failures.dart';
 import 'package:ultra_market/repositories/auth/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'sign_in_state.dart';
 
@@ -22,7 +23,7 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   void rememberMeChanged(bool value) {
-    emit(state.copyWith(rememberMe: value, status: SignInStatus.initial));
+    emit(state.copyWith(status: SignInStatus.initial));
   }
 
   void signInWithCredentials() async {
@@ -32,7 +33,15 @@ class SignInCubit extends Cubit<SignInState> {
         email: state.email,
         password: state.password,
       );
-
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList(
+        'AutoAuth',
+        [
+          'EmailPassword',
+          state.email,
+          state.password,
+        ],
+      );
       emit(
         state.copyWith(status: SignInStatus.success),
       );
@@ -49,10 +58,13 @@ class SignInCubit extends Cubit<SignInState> {
     emit(state.copyWith(status: SignInStatus.submitting));
     try {
       await _authRepository.logInWithGoogle();
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList('AutoAuth', ['Google']);
+
       emit(
         state.copyWith(status: SignInStatus.success),
       );
-      print(_authRepository.currentUser);
     } on LogInWithGoogleFailure catch (e) {
       emit(
         state.copyWith(errorMessage: e.message, status: SignInStatus.error),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ultra_market/config/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ultra_market/pages/sign/components/sign_up_tab.dart';
 
 class TabTextField extends StatelessWidget {
   final Icon? prefixIcon;

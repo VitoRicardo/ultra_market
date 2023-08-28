@@ -10,7 +10,6 @@ class UserModel extends Equatable {
 
   static const empty = UserModel(id: '');
 
-  // Não compreendi pq está sendo criado duas variáveis que possuem a mesma lógica
   bool get isEmpty => this == UserModel.empty;
   bool get isNotEmpty => this != UserModel.empty;
 

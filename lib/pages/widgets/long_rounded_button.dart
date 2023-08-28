@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ultra_market/config/app_colors.dart';
 
-class SignButton extends StatelessWidget {
+class LongRoundedButton extends StatelessWidget {
   final String text;
   final Widget? suffixChild;
   final VoidCallback onPressed;
-  const SignButton(
+  const LongRoundedButton(
       {Key? key, required this.text, required this.onPressed, this.suffixChild})
       : super(key: key);
 
@@ -17,7 +17,7 @@ class SignButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.lightGreen,
-        borderRadius: BorderRadius.circular(20.h),
+        borderRadius: BorderRadius.circular(25.h),
       ),
       child: TextButton(
         onPressed: onPressed,
@@ -35,6 +35,7 @@ class SignButton extends StatelessWidget {
                       text,
                       style: TextStyle(
                           color: AppColors.darkGreen,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(

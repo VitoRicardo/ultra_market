@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ultra_market/config/app_colors.dart';
 import 'package:ultra_market/cubits/sign_up/sign_up_cubit.dart';
-import 'widgets/text_tab_field.dart';
-import 'widgets/sign_button.dart';
+import 'package:ultra_market/pages/widgets/long_rounded_button.dart';
+import 'package:ultra_market/pages/widgets/text_tab_field.dart';
+import '../../widgets/long_rounded_button.dart';
 
 class SignUpTab extends StatelessWidget {
   const SignUpTab({Key? key}) : super(key: key);
@@ -94,7 +95,7 @@ class SignUpTab extends StatelessWidget {
               ),
               BlocBuilder<SignUpCubit, SignUpState>(
                 builder: (context, state) {
-                  return SignButton(
+                  return LongRoundedButton(
                     text: 'Sign Up',
                     onPressed: () =>
                         context.read<SignUpCubit>().signUpWithCredentials(),

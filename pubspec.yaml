@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^4.8.2
   email_validator: ^2.1.17
   go_router: ^10.1.0
+  shared_preferences: ^2.2.0
 
   font_awesome_flutter: ^10.5.0
   curved_labeled_navigation_bar: ^2.0.2

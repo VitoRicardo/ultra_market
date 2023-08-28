@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ultra_market/config/app_colors.dart';
+import 'package:ultra_market/pages/widgets/long_rounded_button.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -45,47 +47,41 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    'Welcome to UltraMarket, where innovation meets convenience.',
-                    style: TextStyle(
-                      color: AppColors.darkGreen.withOpacity(0.5),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Text(
+                  'Welcome to UltraMarket, where innovation meets convenience.',
+                  style: TextStyle(
+                    color: AppColors.darkGreen.withOpacity(0.5),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 30.h),
-                  width: double.infinity,
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                    color: AppColors.lightGreen,
-                    borderRadius: BorderRadius.circular(25.h),
+                SizedBox(
+                  height: 30.h,
+                ),
+                LongRoundedButton(
+                  text: 'Get Started',
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    if (prefs.getStringList('AutoAuth')?[0] == 'Google' &&
+                        context.mounted) {
+                      //TODO: Implementar SignInCubit<chamando Google> e BlocCosumer
+                      context.go('/sign');
+                    } else if (prefs.getStringList('AutoAuth')?[0] ==
+                            'EmailPassword' &&
+                        context.mounted) {
+                      //TODO: Implementar SignInCubit<chamando Email e senha> e BlocCosumer
+                      context.go('/sign');
+                    } else {
+                      print(prefs.getStringList('AutoAuth'));
+                    }
+                  },
+                  suffixChild: Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    color: AppColors.darkGreen,
+                    size: 15.h,
                   ),
-                  child: TextButton(
-                    onPressed: () => context.go('/sign'),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Get Started',
-                            style: TextStyle(
-                                color: AppColors.darkGreen,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.sp),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            color: AppColors.darkGreen,
-                            size: 15.h,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
+                ),
               ],
             ),
           ),
