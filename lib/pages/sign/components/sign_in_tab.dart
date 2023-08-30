@@ -32,7 +32,7 @@ class _SignInTabState extends State<SignInTab> {
         }
         if (state.status == SignInStatus.success) {
           print(context.read<AuthRepository>().currentUser);
-          // context.go('/market');
+          context.go('/market');
         }
       },
       builder: (context, state) {

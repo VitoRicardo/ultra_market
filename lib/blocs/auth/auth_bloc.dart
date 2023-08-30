@@ -1,6 +1,7 @@
 library auth_bloc;
 
 import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ultra_market/repositories/auth/auth_repository.dart';
 import 'package:ultra_market/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -12,7 +13,6 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
-
   StreamSubscription<auth.User?>? _authUserSubscription;
 
   AuthBloc({
@@ -33,7 +33,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         : emit(const AuthState.unauthenticated());
   }
 
-  void _onLogoutRequest(AuthLogoutRequested event, Emitter<AuthState> emit) {
+  void _onLogoutRequest(
+      AuthLogoutRequested event, Emitter<AuthState> emit) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('AutoAuth', ['']);
+    emit(const AuthState.unauthenticated());
     unawaited(_authRepository.logOut());
   }
 
